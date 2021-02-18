@@ -1,0 +1,60 @@
+{
+	"runtime": {
+		"arguments": "--v=1",
+		"version": "stable"
+	},
+	"platform": {
+		"uuid": "openfin_js_app",
+		"autoShow": false,
+		"defaultWindowOptions": {
+			"url": "http://localhost:8080/OpenFinJs/custom-frame.html",
+			"accelerator": {
+				"devtools": true,
+				"reload": true,
+				"reloadIgnoringCache": true
+			},
+			"frame": false,
+			"saveWindowState": false,
+			"defaultCentered": true,
+			"contextMenu": true
+		}
+	},
+	"snapshot": {
+		"windows": [
+			{
+				"defaultWidth": 800,
+				"defaultHeight": 600,
+				"defaultLeft": 0,
+				"defaultTop": 0,
+				"saveWindowState": false,
+				"backgroundThrottling": true,
+				"layout": {
+					"content": [
+						{
+							"type": "stack",
+							"width": 100,
+							"isClosable": true,
+							"reorderEnabled": true,
+							"title": "",
+							"activeItemIndex": 0,
+							"content": [
+								{
+									"type": "component",
+									"componentName": "view",
+									"componentState": {
+										"url": "http://localhost:8080/OpenFinJs/my-app.html",
+										"name": "component_1611650964045"
+									},
+									"isClosable": true,
+									"reorderEnabled": true,
+									"title": "view"
+								}
+							]
+						}
+					]
+				}
+			}
+		]
+	}
+}
+

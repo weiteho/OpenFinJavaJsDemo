@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>My Custom Frame</title>
+<style>
+#win_buttons {
+	float: right;
+}
+
+#win_buttons button {
+	-webkit-app-region: none;
+	background-color: blue;
+	width: 40px;
+	height: 40px;
+}
+
+#titleBar {
+	-webkit-app-region: drag;
+	padding: 5px;
+	background-color: darkgray;
+	height: 50px;
+}
+
+#body-container {
+	-webkit-app-region: none;
+	background-color: lightblue;
+	position: absolute;
+	top: 50px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+#layout-container {
+	width: 60%;
+}
+
+#addTab {
+	background-color: pink;
+	position: absolute;
+	right: 20px;
+	bottom: 50px;
+}
+</style>
+<script>
+function minWin() {
+	fin.Window.getCurrentSync().minimize();
+}
+
+function maxRestoreWin() {
+	fin.Window.getCurrentSync().getState().then(s=>{
+		console.log("win state:", s);
+		if ( s === "maximized" ) {
+	fin.Window.getCurrentSync().restore();
+		}
+		else {
+	fin.Window.getCurrentSync().maximize();
+		}
+	});
+}
+
+function closeWin() {
+	fin.Window.getCurrentSync().close(true);
+}
+
+function addTab() {
+	var currentPlatform = fin.Platform.getCurrentSync();
+	var targetWin = fin.Window.getCurrentSync().identity;
+	currentPlatform.createView({url: "https://www.google.com"}, targetWin);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+		fin.Platform.Layout.init();
+});
+	</script>
+</head>
+<body>
+	<div id="titleBar">
+		<div id="win_buttons">
+			<button onclick="minWin()">_</button>
+			<button onclick="maxRestoreWin()">O</button>
+			<button onclick="closeWin()">X</button>
+		</div>
+	</div>
+	<div id="body-container">
+		<div id="layout-container"></div>
+		<button id="addTab" onclick="addTab()">Add Tab</button>
+	</div>
+</body>
+</html>

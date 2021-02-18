@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>My App</title>
+<script>
+	const channelName = "OpenFinJavaJsChannelDemo";
+	
+	var channelClient;
+
+	function getJavaTime() {
+		if (channelClient) {
+			channelClient.dispatch("GetJavaTime").then(console.log);
+		}
+	}
+
+	function killJavaApp() {
+		if (channelClient) {
+			channelClient.dispatch("KillJavaApp");
+		}
+	}
+
+	function closePlatform() {
+		fin.Platform.getCurrentSync().quit();
+	}
+	
+	function waitForJavaApp() {
+		const javaAppListener = msg => {
+			console.log("java app ready...");
+			connectChannel();
+			fin.InterApplicationBus.unsubscribe({ uuid: '*' }, "JavaAppReady", javaAppListener);
+		};
+		fin.InterApplicationBus.subscribe({ uuid: '*' }, "JavaAppReady", javaAppListener);
+	}
+	
+	function connectChannel() {
+		console.log("connecting to channel", channelName);
+		
+		fin.InterApplicationBus.Channel.connect(channelName, {wait: false}).then(channel=>{
+			console.log("channel connected", channelName);
+			channel.onDisconnection(channelInfo => {
+				console.log("channel disconnected", channelName);
+				channelClient = null;
+				waitForJavaApp();
+			})
+			channelClient = channel;
+		}).catch(err => {
+			//unable to connect, assume java app is not up
+			waitForJavaApp();
+		});
+	}
+	
+	document.addEventListener("DOMContentLoaded", function() {
+		fin.System.showDeveloperTools(fin.me);
+		connectChannel();
+	});
+	
+	
+</script>
+</head>
+<body>
+	<h4>My App</h4>
+	<br />
+	<button id="getJavaTime" onclick="getJavaTime()">Get Java Time</button>
+	<br />
+	<button id="killJavaApp" onclick="killJavaApp()">Kill Java
+		Channel Provider</button>
+	<br />
+	<button id="clickMe" onclick="closePlatform()">Quit Platform</button>
+</body>
+</html>
+
