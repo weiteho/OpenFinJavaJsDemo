@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>co.openfin</groupId>
 			<artifactId>openfin-desktop-java-adapter</artifactId>
-			<version>8.0.10-SNAPSHOT</version>
+			<version>8.0.9</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -28,6 +28,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.2</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
@@ -47,6 +48,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.0</version>
 				<configuration>
 					<archive>
 						<manifest>
